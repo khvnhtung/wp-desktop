@@ -5,6 +5,7 @@
  */
 const shell = require( 'electron' ).shell;
 const ipc = require( 'lib/calypso-commands' );
+const zipLogs = require( '../../window-handlers/get-logs' );
 
 /**
  * Internal dependencies
@@ -52,5 +53,11 @@ module.exports = function( mainWindow ) {
 				shell.openExternal( 'https://automattic.com/privacy/' );
 			}
 		},
+		{
+			label: 'Get activity logs',
+			click: function() {
+				zipLogs( mainWindow );
+			}
+		}
 	] );
 }
