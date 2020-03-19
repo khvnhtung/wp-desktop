@@ -3,7 +3,7 @@
 /**
  * External Dependencies
  */
-const debug = require( 'debug' )( 'desktop:failed-to-load' );
+const log = require( 'lib/logger' )( 'desktop:failed-to-load' );
 const dialog = require( 'electron' ).dialog;
 const app = require( 'electron' ).app;
 
@@ -75,7 +75,7 @@ module.exports = function( mainWindow ) {
 			if ( isErrorPage( event.sender ) ) {
 				failedToLoadError( mainWindow );
 			} else {
-				debug( 'Failed to load from server, showing fallback page: code=' + errorCode + ' ' + errorDescription );
+				log.error( 'Failed to load from server, showing fallback page: code=' + errorCode + ' ' + errorDescription );
 
 				mainWindow.webContents.session.setProxy( { proxyRules: 'direct://' }, function() {
 					mainWindow.loadURL( FAILED_FILE + '#' + errorCode );

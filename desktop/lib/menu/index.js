@@ -4,7 +4,7 @@
  * External Dependencies
  */
 const Menu = require( 'electron' ).Menu;
-const debug = require( 'debug' )( 'desktop:menu' );
+const log = require( 'lib/logger' )( 'desktop:menu' );
 
 /**
  * Internal dependencies
@@ -28,13 +28,13 @@ AppMenu.prototype.set = function( app, mainWindow ) {
 };
 
 AppMenu.prototype.enableLoggedInItems = function() {
-	debug( 'Enabling logged in menu items' );
+	log.info( 'Enabling logged in menu items' );
 
 	menuSetter.setRequiresUser( this.menu, true );
 };
 
 AppMenu.prototype.disableLoggedInItems = function() {
-	debug( 'Disabling logged in menu items' );
+	log.info( 'Disabling logged in menu items' );
 
 	menuSetter.setRequiresUser( this.menu, false );
 };

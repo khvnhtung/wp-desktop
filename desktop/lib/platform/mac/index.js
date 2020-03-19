@@ -6,7 +6,7 @@
 const electron = require( 'electron' );
 const app = electron.app;
 const Menu = electron.Menu;
-const debug = require( 'debug' )( 'platform:mac' );
+const log = require( 'lib/logger' )( 'platform:mac' );
 
 /**
  * Internal dependencies
@@ -21,26 +21,26 @@ function MacPlatform( mainWindow ) {
 	app.dock.setMenu( this.dockMenu );
 
 	app.on( 'activate', function() {
-		debug( 'Window activated' );
+		log.info( 'Window activated' );
 
 		mainWindow.show();
 		mainWindow.focus();
 	} );
 
 	app.on( 'window-all-closed', function() {
-		debug( 'All windows closed, shutting down' );
+		log.info( 'All windows closed, shutting down' );
 		app.quit();
 	} );
 
 	app.on( 'before-quit', function() {
-		debug( 'Application quit triggered' );
+		log.info( 'Application quit triggered' );
 
 		appQuit.allowQuit();
 	} );
 
 	mainWindow.on( 'close', function( ev ) {
 		if ( appQuit.shouldQuitToBackground() ) {
-			debug( 'Window close puts app into background' );
+			log.info( 'Window close puts app into background' );
 			ev.preventDefault();
 			mainWindow.hide();
 		}

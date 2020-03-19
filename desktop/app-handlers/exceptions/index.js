@@ -6,6 +6,7 @@
 const electron = require( 'electron' );
 const app = electron.app;
 const dialog = electron.dialog;
+const log = require( 'lib/logger' )( 'desktop:exceptions', { handleExceptions: true } );
 
 /**
  * Internal dependencies
@@ -66,7 +67,7 @@ function exceptionHandler( error ) {
 		return;
 	}
 
-	console.log( 'uncaughtException (fatal)', error, error.stack, typeof error );
+	log.error( error );
 
 	if ( crashTracker.isEnabled() ) {
 		crashTracker.track( 'exception', { name: error.name, message: error.message, stack: error.stack }, function() {

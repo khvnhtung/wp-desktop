@@ -5,7 +5,7 @@
  */
 const electron = require( 'electron' );
 const app = electron.app;
-const debug = require( 'debug' )( 'platform:linux' );
+const log = require( 'lib/logger' )( 'platform:linux' );
 
 /**
  * Internal dependencies
@@ -15,13 +15,13 @@ function LinuxPlatform( mainWindow ) {
 	this.window = mainWindow;
 
 	app.on( 'activate', function() {
-		debug( 'Window activated' );
+		log.info( 'Window activated' );
 		mainWindow.show();
 		mainWindow.focus();
 	} );
 
 	app.on( 'window-all-closed', function() {
-		debug( 'All windows closed, shutting down' );
+		log.info( 'All windows closed, shutting down' );
 		app.quit();
 	} );
 

@@ -6,7 +6,7 @@
 
 const Platform = require( 'lib/platform' );
 const exec = require( 'child_process' ).execSync;
-const debug = require( 'debug' )( 'desktop:system' );
+const log = require( 'lib/logger' )( 'desktop:system' );
 const os = require( 'os' );
 
 /**
@@ -52,7 +52,7 @@ module.exports = {
 			firstRun: isFirstRun()
 		}
 
-		debug( 'System details: ', details );
+		log.info( 'System details: ', details );
 		return details;
 	},
 	getVersionData: function() {
