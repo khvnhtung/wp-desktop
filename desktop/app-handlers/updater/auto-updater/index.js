@@ -58,7 +58,7 @@ class AutoUpdater extends Updater {
 	}
 
 	onAvailable( info ) {
-		log.info( 'New update is available', info.version )
+		log.info( 'New update is available %s', info.version )
 		bumpStat( 'wpcom-desktop-update-check', `${getStatsString( this.beta )}-needs-update` );
 	}
 
@@ -68,7 +68,7 @@ class AutoUpdater extends Updater {
 	}
 
 	onDownloaded( info ) {
-		log.info( 'Update downloaded', info.version );
+		log.info( 'Update downloaded %s', info.version );
 
 		this.setVersion( info.version );
 		this.notify();
@@ -83,12 +83,15 @@ class AutoUpdater extends Updater {
 	}
 
 	onConfirm() {
+		log.info( 'Initiating application update ...' )
 		AppQuit.allowQuit();
 
 		// Ref: https://github.com/electron-userland/electron-builder/issues/2317#issuecomment-382294058
+		log.info( 'Removing listeners for app \'close\' event' );
 		app.removeAllListeners( 'close' );
 
 		// Ref: https://github.com/electron-userland/electron-builder/issues/1604
+		log.info( 'Removing listeners for app \'window-all-closed\' event' );
 		app.removeAllListeners( 'window-all-closed' );
 		const windows = BrowserWindow.getAllWindows();
 		for ( let i = 0; i < windows.length; i++ ) {
