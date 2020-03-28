@@ -89,12 +89,12 @@ class AutoUpdater extends Updater {
 		app.removeAllListeners( 'close' );
 
 		// Ref: https://github.com/electron-userland/electron-builder/issues/1604
-		// app.removeAllListeners( 'window-all-closed' );
-		// const windows = BrowserWindow.getAllWindows();
-		// for ( let i = 0; i < windows.length; i++ ) {
-		// 	const window = windows[i];
-		// 	window.close()
-		// }
+		app.removeAllListeners( 'window-all-closed' );
+		const windows = BrowserWindow.getAllWindows();
+		for ( let i = 0; i < windows.length; i++ ) {
+			const window = windows[i];
+			window.close()
+		}
 
 		// Ref: https://github.com/electron-userland/electron-builder/issues/4143#issuecomment-521850797
 		autoUpdater.quitAndInstall();
