@@ -76,7 +76,7 @@ module.exports = ( namespace, options ) => {
 		error: ( message, meta ) => logger.error( message, meta ),
 		warn: ( message, meta ) => logger.warn( message, meta ),
 		info: ( message, meta ) => logger.info( message, meta ),
-		debug: ( message, meta ) => { if ( enabled ) logger.debug( message, meta ) }, // eslint-disable-line brace-style
+		debug: ( message, meta ) => logger.debug( message, meta ), // eslint-disable-line brace-style
 		silly: ( message, meta ) => { if ( enabled ) logger.silly( message, meta ) }  // eslint-disable-line brace-style
 	}
 }

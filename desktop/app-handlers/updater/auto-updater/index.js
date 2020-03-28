@@ -14,7 +14,7 @@ const Config = require( 'lib/config' );
 const debugTools = require( 'lib/debug-tools' );
 const { bumpStat, sanitizeVersion, getPlatform } = require( 'lib/desktop-analytics' );
 const Updater = require( 'lib/updater' );
-const log = require( 'lib/logger' )( 'desktop:updater:auto' );
+const log = require( 'lib/logger' )( 'desktop:updater:auto', 'debug' );
 
 const statsPlatform = getPlatform( process.platform )
 const sanitizedVersion = sanitizeVersion( app.getVersion() );
@@ -32,6 +32,8 @@ function dialogDebug( message ) {
 class AutoUpdater extends Updater {
 	constructor( options = {} ) {
 		super( options );
+
+		autoUpdater.logger = log;
 
 		autoUpdater.on( 'error', this.onError.bind( this ) );
 		autoUpdater.on( 'update-available', this.onAvailable.bind( this ) );
