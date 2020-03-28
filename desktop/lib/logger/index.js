@@ -48,7 +48,10 @@ module.exports = ( namespace, options ) => {
 		format.errors( { stack: true } ),
 		format.printf( ( info ) => {
 			const { timestamp, level, message, ...args } = info;
-			let meta = info.stack ? `\n${ info.stack }` : formatMeta( args );
+			let meta = ( typeof info.meta === 'string' || typeof info.meta === 'number' ) ? ` ${ info.meta }` : null;
+			if ( ! meta ) {
+				meta = info.stack ? `\n${ info.stack }` : formatMeta( args );
+			}
 			return `[${ timestamp }] [${ namespace }] [${ level }] ${ message }` + meta;
 		} ) );
 
@@ -76,7 +79,7 @@ module.exports = ( namespace, options ) => {
 		error: ( message, meta ) => logger.error( message, meta ),
 		warn: ( message, meta ) => logger.warn( message, meta ),
 		info: ( message, meta ) => logger.info( message, meta ),
-		debug: ( message, meta ) => logger.debug( message, meta ), // eslint-disable-line brace-style
+		debug: ( message, meta ) => { if ( enabled ) logger.debug( message, meta ) }, // eslint-disable-line brace-style
 		silly: ( message, meta ) => { if ( enabled ) logger.silly( message, meta ) }  // eslint-disable-line brace-style
 	}
 }
